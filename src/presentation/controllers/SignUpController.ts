@@ -1,5 +1,7 @@
+import { HttpRequest, HttpResponse } from '../protocols/http'
+
 export class SignUpController {
-  handle (httpRequest: any): any {
+  handle (httpRequest: HttpRequest): HttpResponse {
     const keys = ['name', 'email', 'age', 'password', 'confirmationPassword']
 
     for (const key of keys) {
@@ -10,5 +12,7 @@ export class SignUpController {
         }
       }
     }
+
+    return { statusCode: 200, body: httpRequest.body }
   }
 }
