@@ -19,5 +19,9 @@
   "homepage": "https://github.com/rafaapcode/API-TYPESCRIPT#readme",
   "dependencies": {
     "git-commit-msg-linter": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "typescript": "^4.9.3"
   }
 }
