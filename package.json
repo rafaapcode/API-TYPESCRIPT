@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/rafaapcode/API-TYPESCRIPT/issues"
   },
-  "homepage": "https://github.com/rafaapcode/API-TYPESCRIPT#readme"
+  "homepage": "https://github.com/rafaapcode/API-TYPESCRIPT#readme",
+  "dependencies": {
+    "git-commit-msg-linter": "^4.2.1"
+  }
 }
