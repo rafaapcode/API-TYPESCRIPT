@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTest --watch",
-    "test:staged": "jest --passWithNoTest"
-  },
-  "jest": {
-    "verbose": true
+    "test": "jest --passWithNoTests --watch",
+    "test:staged": "jest --passWithNoTests"
   },
   "repository": {
     "type": "git",
