@@ -1,6 +1,7 @@
 import { HttpRequest, HttpResponse } from '../protocols/http'
 import MissingParamError from '../errors/Missing-param-error'
 import { Controller } from '../protocols/controller'
+import { badRequest } from '../helpers/http-helper'
 
 export class SignUpController implements Controller {
   handle (httpRequest: HttpRequest): HttpResponse {
@@ -8,10 +9,7 @@ export class SignUpController implements Controller {
 
     for (const key of keys) {
       if (!httpRequest.body[key]) {
-        return {
-          statusCode: 400,
-          body: new MissingParamError(`${key}`)
-        }
+        return badRequest(new MissingParamError(`${key}`))
       }
     }
 
