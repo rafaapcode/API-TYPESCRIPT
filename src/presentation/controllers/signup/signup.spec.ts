@@ -209,8 +209,8 @@ describe('SignUp controller', () => {
 
   test('Should return 500 if AddAccount throws', async () => {
     const { sut, addAccountStub } = makeSut()
-    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
-      throw new Error()
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
+      return Promise.reject(new Error())
     })
     const httpRequest = {
       body: {
@@ -246,6 +246,29 @@ describe('SignUp controller', () => {
       age: httpRequest.body.age,
       email: httpRequest.body.email,
       password: httpRequest.body.password
+    })
+  })
+
+  test('Should AddAccount returns 200 if a valid data is provided', async () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'invalid_email@mail.com',
+        age: 10,
+        password: 'any_password',
+        confirmationPassword: 'any_password'
+      }
+    }
+
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      id: 'any_id',
+      name: 'any_name',
+      age: 12,
+      email: 'any_email',
+      password: 'any_password'
     })
   })
 })
