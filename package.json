@@ -23,11 +23,13 @@
   },
   "homepage": "https://github.com/rafaapcode/API-TYPESCRIPT#readme",
   "dependencies": {
-    "git-commit-msg-linter": "^4.2.1"
+    "git-commit-msg-linter": "^4.2.1",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
+    "@types/validator": "^13.7.10",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "eslint": "^8.27.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
