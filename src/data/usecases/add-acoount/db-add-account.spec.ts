@@ -1,5 +1,5 @@
 import DbAddAccount from './db-add-account'
-import { Encrypt } from './add-account-protocols'
+import { Encrypt, AddAccountModel, AccountModel, AddAccountRepository } from './add-account-protocols'
 
 const makeEncrypter = (): Encrypt => {
   class EncrypterStub {
@@ -11,17 +11,36 @@ const makeEncrypter = (): Encrypt => {
   return new EncrypterStub()
 }
 
+const makeAddAccountRepository = (): AddAccountRepository => {
+  class AddAccountRepositoryStub implements AddAccountRepository {
+    async add (accountData: AddAccountModel): Promise<AccountModel> {
+      return Promise.resolve({
+        id: 'any_id',
+        name: 'any_name',
+        age: 10,
+        email: 'any_email@mail.com',
+        password: 'hashed_password'
+      })
+    }
+  }
+
+  return new AddAccountRepositoryStub()
+}
+
 interface SutTypes {
   dbAddAccount: DbAddAccount
   encrypterStub: Encrypt
+  addAccountRepositoryStub: AddAccountRepository
 }
 const makeSut = (): SutTypes => {
   const encrypterStub = makeEncrypter()
-  const dbAddAccount = new DbAddAccount(encrypterStub)
+  const addAccountRepositoryStub = makeAddAccountRepository()
+  const dbAddAccount = new DbAddAccount(encrypterStub, addAccountRepositoryStub)
 
   return {
     dbAddAccount,
-    encrypterStub
+    encrypterStub,
+    addAccountRepositoryStub
   }
 }
 
@@ -52,5 +71,23 @@ describe('DbAddAccount usecase', () => {
     const promise = dbAddAccount.add(data)
 
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should calls AddAccountRepository with correct values', async () => {
+    const { dbAddAccount, addAccountRepositoryStub } = makeSut()
+    const spyRepo = jest.spyOn(addAccountRepositoryStub, 'add')
+    const data = {
+      name: 'any_name',
+      age: 10,
+      email: 'any_email@mail.com',
+      password: 'hashed_password'
+    }
+    await dbAddAccount.add(data)
+    expect(spyRepo).toHaveBeenCalledWith({
+      name: 'any_name',
+      age: 10,
+      email: 'any_email@mail.com',
+      password: 'hashed_password'
+    })
   })
 })
