@@ -90,4 +90,18 @@ describe('DbAddAccount usecase', () => {
       password: 'hashed_password'
     })
   })
+
+  test('Should throw if AddAccountRepository throws', async () => {
+    const { dbAddAccount, addAccountRepositoryStub } = makeSut()
+    jest.spyOn(addAccountRepositoryStub, 'add').mockReturnValueOnce(Promise.reject(new Error()))
+    const data = {
+      name: 'any_name',
+      age: 10,
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    }
+    const promise = dbAddAccount.add(data)
+
+    await expect(promise).rejects.toThrow()
+  })
 })
