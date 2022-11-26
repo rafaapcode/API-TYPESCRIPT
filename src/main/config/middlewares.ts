@@ -1,5 +1,5 @@
 import { Express } from 'express'
-import { expressJson, expressForm } from '../middlewares/express-json/express-json'
+import { expressForm, expressJson } from '../middlewares/index'
 import cors from '../middlewares/cors/cors'
 
 export default (app: Express): void => {
