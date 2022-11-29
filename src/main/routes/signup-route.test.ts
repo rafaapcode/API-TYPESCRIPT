@@ -18,8 +18,14 @@ describe('SignUp Route', () => {
 
   test('Should return the same body of request', async () => {
     await request(app)
-      .post('/api')
-      .send({ name: 'Rafael Lindo' })
+      .post('/api/signup')
+      .send({
+        name: 'Rafael Lindo',
+        email: 'rafael@gmail.com',
+        age: 19,
+        password: 'qweasdzc',
+        confirmationPassword: 'qweasdzc'
+      })
       .expect(200)
   })
 })
