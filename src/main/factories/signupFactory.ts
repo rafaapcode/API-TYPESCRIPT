@@ -1,4 +1,4 @@
-import { LogRepositoryError } from './../../data/usecases/logErrorRepository/logErrorRepository'
+import { LogRepositoryError } from '../../infra/logErrorRepository/logErrorRepository'
 import { SignUpController } from '../../presentation/controllers/signup/SignUpController'
 import EmailValidatorAdapter from '../../utils/emailValidator/EmailValidatorAdapter'
 import DbAddAccount from '../../data/usecases/add-acoount/db-add-account'
