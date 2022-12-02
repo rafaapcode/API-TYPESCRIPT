@@ -1,3 +1,4 @@
+import { LogRepositoryError } from './../../data/usecases/logErrorRepository/logErrorRepository'
 import { SignUpController } from '../../presentation/controllers/signup/SignUpController'
 import EmailValidatorAdapter from '../../utils/emailValidator/EmailValidatorAdapter'
 import DbAddAccount from '../../data/usecases/add-acoount/db-add-account'
@@ -14,5 +15,6 @@ export const makeSignUpController = (): Controller => {
   const dbAddAccount = new DbAddAccount(encrypt, addAccountRepository)
   const emailValidator = new EmailValidatorAdapter()
   const signUpController = new SignUpController(emailValidator, dbAddAccount)
-  return new LogControllerDecorator(signUpController)
+  const logErrorRepository = new LogRepositoryError()
+  return new LogControllerDecorator(signUpController, logErrorRepository)
 }
